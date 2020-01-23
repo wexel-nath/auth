@@ -122,3 +122,47 @@ func TestUser_IsAuthorized(t *testing.T) {
 		})
 	}
 }
+
+func TestUser_FullName(t *testing.T) {
+	tests := map[string]struct{
+		user User
+		want string
+	}{
+		"first middle last": {
+			user: User{
+				FirstName: "First Middle",
+				LastName:  "Last",
+			},
+			want: "First Middle Last",
+		},
+		"first last": {
+			user: User{
+				FirstName: "First",
+				LastName:  "Last",
+			},
+			want: "First Last",
+		},
+		"only first": {
+			user: User{
+				FirstName: "First",
+				LastName:  "",
+			},
+			want: "First",
+		},
+		"only last": {
+			user: User{
+				FirstName: "",
+				LastName:  "Last",
+			},
+			want: "Last",
+		},
+	}
+
+	for name, test := range tests {
+		t.Run(name, func(st *testing.T) {
+			got := test.user.FullName()
+
+			assert.Equal(st, test.want, got)
+		})
+	}
+}

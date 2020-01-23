@@ -53,3 +53,7 @@ func (u User) IsAuthorized(service string, capabilities []string) error {
 
 	return nil
 }
+
+func (u User) FullName() string {
+	return strings.TrimSpace(u.FirstName + " " + u.LastName)
+}
